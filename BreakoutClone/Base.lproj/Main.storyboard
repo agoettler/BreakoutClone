@@ -19,8 +19,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I34-5v-eJp">
-                                <frame key="frameInset" minX="16" minY="356" width="343" height="60"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I34-5v-eJp">
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="PPt-z1-qL4"/>
@@ -29,9 +28,11 @@
                                 <state key="normal" title="High Scores">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <segue destination="M3l-qO-eqn" kind="show" action="showDetailViewController:sender:" id="irQ-gS-qrc"/>
+                                </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gl7-f2-Nc7">
-                                <frame key="frameInset" minX="16" minY="259" width="343" height="60"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gl7-f2-Nc7">
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="59P-Yw-aRR"/>
@@ -40,22 +41,79 @@
                                 <state key="normal" title="Play">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <segue destination="PdU-E1-LKW" kind="show" action="showDetailViewController:sender:" id="2EI-sD-o9V"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="I34-5v-eJp" firstAttribute="top" secondItem="Gl7-f2-Nc7" secondAttribute="bottom" constant="60" id="c9L-BU-vx4"/>
+                            <constraint firstItem="Gl7-f2-Nc7" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="-60" id="5mc-OF-TFy"/>
                             <constraint firstAttribute="leadingMargin" secondItem="Gl7-f2-Nc7" secondAttribute="leading" id="deh-R4-oz5"/>
                             <constraint firstAttribute="trailingMargin" secondItem="I34-5v-eJp" secondAttribute="trailing" id="fGq-3q-cHm"/>
                             <constraint firstItem="I34-5v-eJp" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="gF2-pJ-dRC"/>
                             <constraint firstAttribute="leadingMargin" secondItem="I34-5v-eJp" secondAttribute="leading" id="ipF-RD-GLe"/>
                             <constraint firstItem="Gl7-f2-Nc7" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="jtP-YA-SEY"/>
+                            <constraint firstItem="I34-5v-eJp" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="60" id="ssK-Zn-0aL"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Gl7-f2-Nc7" secondAttribute="trailing" id="vPx-vK-TDU"/>
                         </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+        </scene>
+        <!--Game View Controller-->
+        <scene sceneID="MYa-Vp-8CT">
+            <objects>
+                <viewController id="PdU-E1-LKW" customClass="GameViewController" customModule="BreakoutClone" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="dEg-8N-ArJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="CJU-le-fMF"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Cgu-ve-DfB">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hez-OR-0yV">
+                                <frame key="frameInset" minX="164" minY="318" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Dismiss"/>
+                                <connections>
+                                    <action selector="dismissPressed" destination="PdU-E1-LKW" eventType="touchUpInside" id="Bbx-fJ-hBd"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="I0T-oi-moh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="796" y="-294"/>
+        </scene>
+        <!--Score View Controller-->
+        <scene sceneID="cNP-af-HFb">
+            <objects>
+                <viewController id="M3l-qO-eqn" customClass="ScoreViewController" customModule="BreakoutClone" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="1D9-4X-WAk"/>
+                        <viewControllerLayoutGuide type="bottom" id="S4g-zE-Zaf"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Zzm-SX-jgw">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1P7-Uo-SZ0">
+                                <frame key="frameInset" minX="67" minY="269" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Sco-97-MvL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="796" y="399"/>
         </scene>
     </scenes>
 </document>
