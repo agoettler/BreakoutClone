@@ -10,11 +10,18 @@ import UIKit
 
 class GameViewController: UIViewController
 {
-    @IBOutlet weak var paddleView: UIView!
+    // paddle should stay on screen; ball and blocks should be added and removed programmatically
+    @IBOutlet weak var paddle: UIView!
+
     
     var gameAnimator: UIDynamicAnimator!
     
+    var paddleProps: UIDynamicItemBehavior!
+    var ballProps: UIDynamicItemBehavior!
+    var blockProps: UIDynamicItemBehavior!
     
+    var gravityBehavior: UIGravityBehavior!
+    var collisionBehavior: UICollisionBehavior!
 
     override func viewDidLoad()
     {
@@ -54,16 +61,25 @@ class GameViewController: UIViewController
     func initializeDynamics()
     {
         gameAnimator = UIDynamicAnimator(referenceView: self.view)
+        
+        paddleProps = UIDynamicItemBehavior(items: [paddle])
+        paddleProps.resistance = 0.0
+        paddleProps.elasticity = 1.0
+        paddleProps.friction = 0.0
+        paddleProps.isAnchored = true
+        paddleProps.allowsRotation = false
+        
+        gameAnimator.addBehavior(paddleProps)
     }
     
     @IBAction func handlePanGesture(_ sender: UIPanGestureRecognizer)
     {
-        paddleView.center.x += sender.translation(in: self.view).x
+        paddle.center.x += sender.translation(in: self.view).x
         
         // apparently this is important, otherwise the translation is cumulative - stuff flies off the screen!
         sender.setTranslation(CGPoint(x: 0, y: 0), in: self.view)
         
-        gameAnimator.updateItem(usingCurrentState: paddleView)
+        gameAnimator.updateItem(usingCurrentState: paddle)
     }
     
 }

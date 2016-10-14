@@ -87,7 +87,7 @@
                         </connections>
                     </view>
                     <connections>
-                        <outlet property="paddleView" destination="KmZ-uw-NOx" id="GfM-6h-gbz"/>
+                        <outlet property="paddle" destination="KmZ-uw-NOx" id="b0f-B1-2Pk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I0T-oi-moh" userLabel="First Responder" sceneMemberID="firstResponder"/>
