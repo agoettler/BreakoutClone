@@ -74,21 +74,30 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hez-OR-0yV">
-                                <frame key="frameInset" minX="164" minY="318" width="46" height="30"/>
+                            <view contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="Paddle" translatesAutoresizingMaskIntoConstraints="NO" id="KmZ-uw-NOx">
+                                <frame key="frameInset" minX="112" minY="617" width="150" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Dismiss"/>
-                                <connections>
-                                    <action selector="dismissPressed" destination="PdU-E1-LKW" eventType="touchUpInside" id="Bbx-fJ-hBd"/>
-                                </connections>
-                            </button>
+                                <color key="backgroundColor" red="0.32436618208885193" green="0.40717673301696777" blue="0.43850564956665039" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="w1c-Fv-zYn" appends="YES" id="ky3-bu-jc3"/>
+                        </connections>
                     </view>
+                    <connections>
+                        <outlet property="paddleView" destination="KmZ-uw-NOx" id="GfM-6h-gbz"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I0T-oi-moh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="w1c-Fv-zYn">
+                    <connections>
+                        <action selector="handlePanGesture:" destination="PdU-E1-LKW" id="U5q-p5-WNU"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="796" y="-294"/>
+            <point key="canvasLocation" x="901.60000000000002" y="-206.44677661169416"/>
         </scene>
         <!--Score View Controller-->
         <scene sceneID="cNP-af-HFb">
@@ -102,18 +111,40 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1P7-Uo-SZ0">
-                                <frame key="frameInset" minX="67" minY="269" width="240" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1P7-Uo-SZ0">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tkY-Wh-qlc">
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="Wc8-rf-eyF"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="Back to Menu">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="dismissButtonPressed:" destination="M3l-qO-eqn" eventType="touchUpInside" id="HJv-YS-XMv"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="1P7-Uo-SZ0" secondAttribute="trailing" id="478-Bk-aRX"/>
+                            <constraint firstItem="tkY-Wh-qlc" firstAttribute="top" secondItem="1P7-Uo-SZ0" secondAttribute="bottom" constant="8" id="O1J-PZ-0x6"/>
+                            <constraint firstItem="1P7-Uo-SZ0" firstAttribute="top" secondItem="1D9-4X-WAk" secondAttribute="bottom" constant="8" id="OOC-ER-saY"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="1P7-Uo-SZ0" secondAttribute="leading" id="QnX-he-0VH"/>
+                            <constraint firstItem="S4g-zE-Zaf" firstAttribute="top" secondItem="tkY-Wh-qlc" secondAttribute="bottom" constant="20" id="SO0-i9-iEU"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="tkY-Wh-qlc" secondAttribute="trailing" id="VS8-Lw-Vou"/>
+                            <constraint firstItem="tkY-Wh-qlc" firstAttribute="centerX" secondItem="Zzm-SX-jgw" secondAttribute="centerX" id="dfN-zr-EFN"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="tkY-Wh-qlc" secondAttribute="leading" id="oua-F1-gHh"/>
+                            <constraint firstItem="1P7-Uo-SZ0" firstAttribute="centerX" secondItem="Zzm-SX-jgw" secondAttribute="centerX" id="u0R-is-dOv"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sco-97-MvL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="796" y="399"/>
+            <point key="canvasLocation" x="901.60000000000002" y="437.63118440779613"/>
         </scene>
     </scenes>
 </document>
