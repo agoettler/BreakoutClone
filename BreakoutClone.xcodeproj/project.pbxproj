@@ -14,6 +14,7 @@
 		75993C741DADF21E0020FDAA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75993C721DADF21E0020FDAA /* LaunchScreen.storyboard */; };
 		75993C7C1DB042D00020FDAA /* ScoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75993C7B1DB042D00020FDAA /* ScoreViewController.swift */; };
 		75993C7E1DB042EB0020FDAA /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75993C7D1DB042EB0020FDAA /* GameViewController.swift */; };
+		75993C801DB16B940020FDAA /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75993C7F1DB16B940020FDAA /* CircleView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		75993C751DADF21E0020FDAA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		75993C7B1DB042D00020FDAA /* ScoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreViewController.swift; sourceTree = "<group>"; };
 		75993C7D1DB042EB0020FDAA /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		75993C7F1DB16B940020FDAA /* CircleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 			children = (
 				75993C691DADF21E0020FDAA /* AppDelegate.swift */,
 				75993C6B1DADF21E0020FDAA /* ViewController.swift */,
+				75993C7F1DB16B940020FDAA /* CircleView.swift */,
 				75993C6D1DADF21E0020FDAA /* Main.storyboard */,
 				75993C7B1DB042D00020FDAA /* ScoreViewController.swift */,
 				75993C7D1DB042EB0020FDAA /* GameViewController.swift */,
@@ -144,6 +147,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				75993C7E1DB042EB0020FDAA /* GameViewController.swift in Sources */,
+				75993C801DB16B940020FDAA /* CircleView.swift in Sources */,
 				75993C6C1DADF21E0020FDAA /* ViewController.swift in Sources */,
 				75993C6A1DADF21E0020FDAA /* AppDelegate.swift in Sources */,
 				75993C7C1DB042D00020FDAA /* ScoreViewController.swift in Sources */,

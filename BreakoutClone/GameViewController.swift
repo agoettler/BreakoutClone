@@ -6,13 +6,25 @@
 //  Copyright © 2016 Andrew Goettler. All rights reserved.
 //
 
+/*
+ Blocks should be 80x40; arranged 4 blocks wide and 8 blocks high. A space of 7 or 8 should be left between each block Each band of color is two blocks in height.
+From bottom to top:
+    Row 0: Solarized Yellow
+    Row 1: Solarized Green
+    Row 2: Solarized Blue
+    Row 3: Solarized Red
+ 
+ */
 import UIKit
 
-class GameViewController: UIViewController
-{
+class GameViewController: UIViewController, UICollisionBehaviorDelegate
+{    
     // paddle should stay on screen; ball and blocks should be added and removed programmatically
     @IBOutlet weak var paddle: UIView!
-
+    @IBOutlet weak var scoreLabel: UILabel!
+    @IBOutlet weak var ballCountLabel: UILabel!
+    
+    var ball: CircleView!
     
     var gameAnimator: UIDynamicAnimator!
     
@@ -22,6 +34,7 @@ class GameViewController: UIViewController
     
     var gravityBehavior: UIGravityBehavior!
     var collisionBehavior: UICollisionBehavior!
+    var ballPushBehavior: UIPushBehavior!
 
     override func viewDidLoad()
     {
@@ -38,9 +51,13 @@ class GameViewController: UIViewController
         
         print("GameViewController viewDidAppear")
         
+        createBall()
+        
         initializeDynamics()
+        
+        startBall()
     }
-
+    
     override func didReceiveMemoryWarning()
     {
         super.didReceiveMemoryWarning()
@@ -70,6 +87,27 @@ class GameViewController: UIViewController
         paddleProps.allowsRotation = false
         
         gameAnimator.addBehavior(paddleProps)
+        
+        ballProps = UIDynamicItemBehavior(items: [ball])
+        ballProps.resistance = 0.0
+        ballProps.elasticity = 1.0
+        ballProps.friction = 0.0
+        
+        gameAnimator.addBehavior(ballProps)
+        
+        gravityBehavior = UIGravityBehavior(items: [ball])
+        gravityBehavior.magnitude = 0.2
+        
+        gameAnimator.addBehavior(gravityBehavior)
+        
+        collisionBehavior = UICollisionBehavior(items: [ball, paddle])
+        collisionBehavior.translatesReferenceBoundsIntoBoundary = true
+        collisionBehavior.collisionDelegate = self
+        
+        gameAnimator.addBehavior(collisionBehavior)
+        
+        ballPushBehavior = UIPushBehavior(items: [ball], mode: UIPushBehaviorMode.instantaneous)
+        gameAnimator.addBehavior(ballPushBehavior)
     }
     
     @IBAction func handlePanGesture(_ sender: UIPanGestureRecognizer)
@@ -82,4 +120,22 @@ class GameViewController: UIViewController
         gameAnimator.updateItem(usingCurrentState: paddle)
     }
     
+    func createBall()
+    {
+        // create and position the ball at the paddle
+        ball = CircleView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+        ball.center.x = paddle.center.x
+        ball.center.y = paddle.center.y - ball.bounds.height - 30
+        self.view.addSubview(ball)
+        
+        
+    }
+    
+    func startBall()
+    {
+        // give the ball a kick to start
+        ballPushBehavior.magnitude = 0.5
+        ballPushBehavior.angle = 90.0
+        ballPushBehavior.active = true
+    }
 }

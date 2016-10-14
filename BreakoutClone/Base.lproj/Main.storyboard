@@ -77,8 +77,22 @@
                             <view contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="Paddle" translatesAutoresizingMaskIntoConstraints="NO" id="KmZ-uw-NOx">
                                 <frame key="frameInset" minX="112" minY="617" width="150" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.32436618208885193" green="0.40717673301696777" blue="0.43850564956665039" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.27671992778778076" green="0.35665956139564514" blue="0.38298487663269043" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Ball: 3" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Ey-3q-ucN">
+                                <frame key="frameInset" minX="306" minY="20" width="53" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Score: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RK8-Bo-UVr">
+                                <frame key="frameInset" minX="16" minY="20" width="120" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
@@ -87,7 +101,9 @@
                         </connections>
                     </view>
                     <connections>
+                        <outlet property="ballCountLabel" destination="4Ey-3q-ucN" id="fUa-nc-8Ia"/>
                         <outlet property="paddle" destination="KmZ-uw-NOx" id="b0f-B1-2Pk"/>
+                        <outlet property="scoreLabel" destination="RK8-Bo-UVr" id="BdF-yq-Db9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I0T-oi-moh" userLabel="First Responder" sceneMemberID="firstResponder"/>
