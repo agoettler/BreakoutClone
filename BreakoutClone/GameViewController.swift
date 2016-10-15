@@ -150,7 +150,7 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
         
         // configure and add the gravity behavior
         gravityBehavior = UIGravityBehavior(items: [ball])
-        gravityBehavior.magnitude = 0.2
+        gravityBehavior.magnitude = 0.0
         gameAnimator.addBehavior(gravityBehavior)
         
         // configure and add the collision behavior
@@ -186,9 +186,9 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
             print(", velocity: (\(paddleVelocity.x), \(paddleVelocity.y))")
         }
         
-        reportBall()
+        //reportBall()
         
-        reportPaddle()
+        //reportPaddle()
     }
     
     @IBAction func handlePanGesture(_ sender: UIPanGestureRecognizer)
@@ -216,7 +216,7 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
     func startBall()
     {
         // give the ball a kick to start
-        ballPushBehavior.magnitude = 0.5
+        ballPushBehavior.magnitude = 0.2
         
         ballPushBehavior.angle = CGFloat.pi/2
         
@@ -246,6 +246,28 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
     
     func collisionBehavior(_ behavior: UICollisionBehavior, endedContactFor item1: UIDynamicItem, with item2: UIDynamicItem)
     {
-        //
+        func handleBlockCollision(item: BlockView)
+        {
+            print("Block detected a collision")
+            
+            collisionBehavior.removeItem(item)
+            
+            let destroyedBlock = item
+            
+            destroyedBlock.removeFromSuperview()
+        }
+        
+        //print("\(item1.description) ended contact with \(item2.description)")
+        
+        // it's safe to cast the item as a BlockView, since the if statements test the class membership
+        if item1.isMember(of: BlockView.self)
+        {
+            handleBlockCollision(item: item1 as! BlockView)
+        }
+        
+        else if item2.isMember(of: BlockView.self)
+        {
+            handleBlockCollision(item: item2 as! BlockView)
+        }
     }
 }
