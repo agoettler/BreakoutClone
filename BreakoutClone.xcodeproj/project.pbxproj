@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7513A65D1DB281E5005A6155 /* BlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7513A65C1DB281E4005A6155 /* BlockView.swift */; };
 		75993C6A1DADF21E0020FDAA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75993C691DADF21E0020FDAA /* AppDelegate.swift */; };
 		75993C6C1DADF21E0020FDAA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75993C6B1DADF21E0020FDAA /* ViewController.swift */; };
 		75993C6F1DADF21E0020FDAA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75993C6D1DADF21E0020FDAA /* Main.storyboard */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7513A65C1DB281E4005A6155 /* BlockView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockView.swift; sourceTree = "<group>"; };
 		75993C661DADF21E0020FDAA /* BreakoutClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BreakoutClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		75993C691DADF21E0020FDAA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		75993C6B1DADF21E0020FDAA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -63,9 +65,10 @@
 				75993C691DADF21E0020FDAA /* AppDelegate.swift */,
 				75993C6B1DADF21E0020FDAA /* ViewController.swift */,
 				75993C7F1DB16B940020FDAA /* CircleView.swift */,
-				75993C6D1DADF21E0020FDAA /* Main.storyboard */,
 				75993C7B1DB042D00020FDAA /* ScoreViewController.swift */,
 				75993C7D1DB042EB0020FDAA /* GameViewController.swift */,
+				7513A65C1DB281E4005A6155 /* BlockView.swift */,
+				75993C6D1DADF21E0020FDAA /* Main.storyboard */,
 				75993C701DADF21E0020FDAA /* Assets.xcassets */,
 				75993C721DADF21E0020FDAA /* LaunchScreen.storyboard */,
 				75993C751DADF21E0020FDAA /* Info.plist */,
@@ -150,6 +153,7 @@
 				75993C801DB16B940020FDAA /* CircleView.swift in Sources */,
 				75993C6C1DADF21E0020FDAA /* ViewController.swift in Sources */,
 				75993C6A1DADF21E0020FDAA /* AppDelegate.swift in Sources */,
+				7513A65D1DB281E5005A6155 /* BlockView.swift in Sources */,
 				75993C7C1DB042D00020FDAA /* ScoreViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -312,6 +316,7 @@
 				75993C7A1DADF21E0020FDAA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -8,11 +8,11 @@
 
 /*
  Blocks should be 80x40; arranged 4 blocks wide and 8 blocks high. A space of 7 or 8 should be left between each block Each band of color is two blocks in height.
-From bottom to top:
-    Row 0: Solarized Yellow
-    Row 1: Solarized Green
-    Row 2: Solarized Blue
-    Row 3: Solarized Red
+From top to bottom:
+    Row 0: Solarized Red
+    Row 1: Solarized Blue
+    Row 2: Solarized Green
+    Row 3: Solarized Yellow
  
  */
 import UIKit
@@ -26,12 +26,19 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
     
     var ball: CircleView!
     
-    var blocks: [UIView] = []
+    var blocks: [BlockView] = []
     let blockSize: CGSize = CGSize(width: 80.0, height: 40.0)
     let blockSpace: CGFloat = 8.0
     let cornerCoordinates: CGPoint = CGPoint(x: 16.0, y: 49.0 ) // (16,49)
     let blockRows = 8
     let blockColumns = 4
+    
+    // UIColor uses color values between 0.0 and 1.0, requiring conversion
+    let solarizedRed: UIColor = UIColor(red: 220.0/255.0, green: 50.0/255.0, blue: 47.0/255.0, alpha: 1.0)
+    let solarizedBlue: UIColor = UIColor(red: 38.0/255.0, green: 139.0/255.0, blue: 210.0/255.0, alpha: 1.0)
+    let solarizedGreen: UIColor = UIColor(red: 133.0/255.0, green: 153.0/255.0, blue: 0.0/255.0, alpha: 1.0)
+    let solarizedYellow: UIColor = UIColor(red: 181.0/255.0, green: 137.0/255.0, blue: 0.0/255.0, alpha: 1.0)
+    var blockColors: [UIColor]!
     
     var gameAnimator: UIDynamicAnimator!
     
@@ -50,6 +57,8 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
         // Do any additional setup after loading the view.
         
         print("GameViewController viewDidLoad")
+        
+        blockColors = [solarizedRed, solarizedBlue, solarizedGreen, solarizedYellow]
     }
     
     override func viewDidAppear(_ animated: Bool)
@@ -86,6 +95,7 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
     
     func initializeDynamics()
     {
+        // nested functions for organization
         func configurePaddlePropsBehavior()
         {
             paddleProps = UIDynamicItemBehavior(items: [paddle])
@@ -107,7 +117,7 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
         func configureCollisionBehavior()
         {
             var collisionItems: [UIView] = [ball, paddle]
-            collisionItems.append(contentsOf: blocks)
+            collisionItems.append(contentsOf: blocks as [UIView])
             collisionBehavior = UICollisionBehavior(items: collisionItems)
             collisionBehavior.translatesReferenceBoundsIntoBoundary = true
             collisionBehavior.collisionDelegate = self
@@ -123,24 +133,31 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
             blockProps.allowsRotation = false
         }
         
+        // configure behaviors and add them to the animator
         gameAnimator = UIDynamicAnimator(referenceView: self.view)
         
+        // configure and add the paddle behavior
         configurePaddlePropsBehavior()
         gameAnimator.addBehavior(paddleProps)
         
+        // configure and add the ball behavior
         configureBallPropsBehavior()
         gameAnimator.addBehavior(ballProps)
         
+        // configure and add the gravity behavior
         gravityBehavior = UIGravityBehavior(items: [ball])
         gravityBehavior.magnitude = 0.2
         gameAnimator.addBehavior(gravityBehavior)
         
+        // configure and add the collision behavior
         configureCollisionBehavior()
         gameAnimator.addBehavior(collisionBehavior)
         
+        // configure and add the ball push behavior
         ballPushBehavior = UIPushBehavior(items: [ball], mode: UIPushBehaviorMode.instantaneous)
         gameAnimator.addBehavior(ballPushBehavior)
         
+        // configure and add the block behavior
         configureBlockPropsBehaviors()
         gameAnimator.addBehavior(blockProps)
     }
@@ -159,18 +176,21 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
     {
         // create and position the ball at the paddle
         ball = CircleView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+        
         ball.center.x = paddle.center.x
+        
         ball.center.y = paddle.center.y - ball.bounds.height - 30
+        
         self.view.addSubview(ball)
-        
-        
     }
     
     func startBall()
     {
         // give the ball a kick to start
         ballPushBehavior.magnitude = 0.5
+        
         ballPushBehavior.angle = CGFloat.pi/2
+        
         ballPushBehavior.active = true
     }
     
@@ -185,9 +205,10 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
                 //print("Creating new block at: (\(newOrigin.x),\(newOrigin.y))")
                 //print("Creating new block at row: \(row), column: \(column)")
                 
-                blocks.append(UIView(frame: CGRect(origin: newOrigin, size: blockSize)))
+                blocks.append(BlockView(frame: CGRect(origin: newOrigin, size: blockSize)))
                 
-                blocks.last!.backgroundColor = UIColor.red
+                // integer division allows 0,1 to map to 0, 2,3 to map to 2, etc.
+                blocks.last!.backgroundColor = blockColors![row/2]
                 
                 self.view.addSubview(blocks.last!)
             }
