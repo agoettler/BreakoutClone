@@ -18,7 +18,11 @@ From top to bottom:
 import UIKit
 
 class GameViewController: UIViewController, UICollisionBehaviorDelegate
-{    
+{
+    var score: Int = 0
+    
+    var ballCount: Int = 3
+    
     // paddle should stay on screen; ball and blocks should be added and removed programmatically
     @IBOutlet weak var paddle: UIView!
     @IBOutlet weak var scoreLabel: UILabel!
@@ -32,6 +36,7 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
     let cornerCoordinates: CGPoint = CGPoint(x: 16.0, y: 49.0 ) // (16,49)
     let blockRows = 8
     let blockColumns = 4
+    let blockScores: [Int] = [4, 3, 2, 1]
     
     // UIColor uses color values between 0.0 and 1.0, requiring conversion
     let solarizedRed: UIColor = UIColor(red: 220.0/255.0, green: 50.0/255.0, blue: 47.0/255.0, alpha: 1.0)
@@ -234,7 +239,7 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
                 //print("Creating new block at: (\(newOrigin.x),\(newOrigin.y))")
                 //print("Creating new block at row: \(row), column: \(column)")
                 
-                blocks.append(BlockView(frame: CGRect(origin: newOrigin, size: blockSize)))
+                blocks.append(BlockView(frame: CGRect(origin: newOrigin, size: blockSize), pointValue: blockScores[row/2]))
                 
                 // integer division allows 0,1 to map to 0, 2,3 to map to 2, etc.
                 blocks.last!.backgroundColor = blockColors![row/2]
@@ -252,9 +257,11 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
             
             collisionBehavior.removeItem(item)
             
-            let destroyedBlock = item
+            item.removeFromSuperview()
             
-            destroyedBlock.removeFromSuperview()
+            self.score += item.scoreValue
+            
+            self.scoreLabel.text! = "Score: \(self.score)"
         }
         
         //print("\(item1.description) ended contact with \(item2.description)")

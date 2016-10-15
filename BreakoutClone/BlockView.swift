@@ -10,8 +10,12 @@ import UIKit
 
 class BlockView: UIView
 {
+    let scoreValue: Int
+    
     override init(frame: CGRect)
     {
+        self.scoreValue = 0
+        
         super.init(frame: frame)
         
         setup()
@@ -19,7 +23,18 @@ class BlockView: UIView
     
     required init?(coder aDecoder: NSCoder)
     {
+        self.scoreValue = 0
+        
         super.init(coder: aDecoder)
+        
+        setup()
+    }
+    
+    init(frame: CGRect, pointValue: Int)
+    {
+        self.scoreValue = pointValue
+        
+        super.init(frame: frame)
         
         setup()
     }
@@ -37,6 +52,4 @@ class BlockView: UIView
         // Drawing code
     }
     */
-    
-    
 }
