@@ -73,6 +73,10 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
         
         initializeDynamics()
         
+        report()
+        
+        Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(self.report), userInfo: nil, repeats: true)
+        
         startBall()
     }
     
@@ -162,6 +166,31 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
         gameAnimator.addBehavior(blockProps)
     }
     
+    func report()
+    {
+        func reportBall()
+        {
+            print("ball origin: (\(ball.center.x), \(ball.center.y))", terminator: "")
+        
+            let ballVelocity: CGPoint = ballProps.linearVelocity(for: ball)
+            
+            print(", velocity: (\(ballVelocity.x), \(ballVelocity.y))")
+        }
+        
+        func reportPaddle()
+        {
+            print("paddle origin: (\(paddle.center.x), \(paddle.center.y))", terminator: "")
+            
+            let paddleVelocity: CGPoint = paddleProps.linearVelocity(for: paddle)
+            
+            print(", velocity: (\(paddleVelocity.x), \(paddleVelocity.y))")
+        }
+        
+        reportBall()
+        
+        reportPaddle()
+    }
+    
     @IBAction func handlePanGesture(_ sender: UIPanGestureRecognizer)
     {
         paddle.center.x += sender.translation(in: self.view).x
@@ -213,5 +242,10 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
                 self.view.addSubview(blocks.last!)
             }
         }
+    }
+    
+    func collisionBehavior(_ behavior: UICollisionBehavior, endedContactFor item1: UIDynamicItem, with item2: UIDynamicItem)
+    {
+        //
     }
 }
