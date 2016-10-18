@@ -20,8 +20,9 @@ import UIKit
 class GameViewController: UIViewController, UICollisionBehaviorDelegate
 {
     var score: Int = 0
-    
     var ballCount: Int = 3
+    var highScores: [Int] = []
+    let highScoreSize: Int = 5
     
     // paddle should stay on screen; ball and blocks should be added and removed programmatically
     @IBOutlet weak var paddle: UIView!
@@ -352,6 +353,36 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
     {
         print("Game finished")
         
+        updateHighScores(newScore: score)
+        
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    func updateHighScores(newScore: Int)
+    {
+        if highScores.count < highScoreSize
+        {
+            print("Adding new high score of: \(newScore)")
+            highScores.append(newScore)
+        }
+        
+        else
+        {
+            for score in highScores
+            {
+                if newScore > score
+                {
+                    print("Inserting new high score of: \(newScore)")
+                    highScores.insert(score, at: highScores.index(before: highScores.index(of: score)!))
+                }
+            }
+            
+            // dump any excess high scores
+            if highScores.count > highScoreSize
+            {
+                print("Removing excess high scores")
+                highScores.removeLast(highScores.count - highScoreSize)
+            }
+        }
     }
 }
