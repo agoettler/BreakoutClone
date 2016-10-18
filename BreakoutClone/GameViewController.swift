@@ -355,6 +355,8 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
         
         updateHighScores(newScore: score)
         
+        storeHighScores()
+        
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -384,5 +386,10 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
                 highScores.removeLast(highScores.count - highScoreSize)
             }
         }
+    }
+    
+    func storeHighScores()
+    {
+        UserDefaults.standard.set(highScores, forKey: "highScores")
     }
 }
