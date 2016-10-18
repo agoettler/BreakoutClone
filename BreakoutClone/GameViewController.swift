@@ -214,7 +214,13 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
     
     @IBAction func handlePanGesture(_ sender: UIPanGestureRecognizer)
     {
-        paddle.center.x += sender.translation(in: self.view).x
+        let translation = sender.translation(in: self.view)
+        
+        // if not ((left side will move outside bounds) || (right side will move outside bounds))
+        if !(((paddle.frame.minX + translation.x) <= self.view.bounds.minX) || ((paddle.frame.maxX + translation.x) >= self.view.bounds.maxX))
+        {
+            paddle.center.x += translation.x
+        }
         
         // apparently this is important, otherwise the translation is cumulative - stuff flies off the screen!
         sender.setTranslation(CGPoint(x: 0, y: 0), in: self.view)
