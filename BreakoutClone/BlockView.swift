@@ -30,9 +30,9 @@ class BlockView: UIView
         setup()
     }
     
-    init(frame: CGRect, pointValue: Int)
+    init(frame: CGRect, scoreValue: Int)
     {
-        self.scoreValue = pointValue
+        self.scoreValue = scoreValue
         
         super.init(frame: frame)
         

@@ -54,6 +54,12 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
     var gravityBehavior: UIGravityBehavior!
     var collisionBehavior: UICollisionBehavior!
     var ballPushBehavior: UIPushBehavior!
+    
+    // NSString identifiers for collision boundaries, because NSCopying is weird
+    let topBoundary: NSString = "top"
+    let leftBoundary: NSString = "left"
+    let rightBoundary: NSString = "right"
+    let bottomBoundary: NSString = "bottom"
 
     override func viewDidLoad()
     {
@@ -128,7 +134,16 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
             var collisionItems: [UIView] = [ball, paddle]
             collisionItems.append(contentsOf: blocks as [UIView])
             collisionBehavior = UICollisionBehavior(items: collisionItems)
-            collisionBehavior.translatesReferenceBoundsIntoBoundary = true
+            //collisionBehavior.translatesReferenceBoundsIntoBoundary = true
+            
+            //in order to detect collisions with the bottom boundary, need to define collision boundaries manually
+            collisionBehavior.addBoundary(withIdentifier: topBoundary, from: self.view.bounds.origin, to: CGPoint(x: self.view.bounds.maxX, y: 0))
+            collisionBehavior.addBoundary(withIdentifier: leftBoundary, from: self.view.bounds.origin, to: CGPoint(x: 0, y: self.view.bounds.maxY))
+            collisionBehavior.addBoundary(withIdentifier: rightBoundary, from: CGPoint(x: self.view.bounds.maxX, y: 0), to: CGPoint(x: self.view.bounds.maxX, y: self.view.bounds.maxY))
+            
+            // try to define the bottom boundary below the display, so the ball can "drain"
+            collisionBehavior.addBoundary(withIdentifier: bottomBoundary, from: CGPoint(x: 0, y: self.view.bounds.maxY + (2 * ball.bounds.height)), to: CGPoint(x: self.view.bounds.maxX, y: self.view.bounds.maxY + (2 * ball.bounds.height)))
+            
             collisionBehavior.collisionDelegate = self
         }
         
@@ -228,6 +243,33 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
         ballPushBehavior.active = true
     }
     
+    func drainBall()
+    {
+        // decrement and update the ball counter
+        ballCount -= 1
+        
+        ballCountLabel.text! = "Ball: \(ballCount)"
+        
+        // stop the ball
+        //ballProps.addLinearVelocity(ballProps.linearVelocity(for: ball).applying(CGAffineTransform(scaleX: -1, y: -1)), for: ball)
+        
+        // dispose of the ball entirely
+        collisionBehavior.removeItem(ball)
+        ballProps.removeItem(ball)
+        ballPushBehavior.removeItem(ball)
+        gravityBehavior.removeItem(ball)
+        
+        ball.removeFromSuperview()
+        
+        // create a new ball
+        createBall()
+        collisionBehavior.addItem(ball)
+        ballProps.addItem(ball)
+        ballPushBehavior.addItem(ball)
+        gravityBehavior.addItem(ball)
+        startBall()
+    }
+    
     func createBlocks()
     {
         for row in 0..<blockRows
@@ -239,7 +281,7 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
                 //print("Creating new block at: (\(newOrigin.x),\(newOrigin.y))")
                 //print("Creating new block at row: \(row), column: \(column)")
                 
-                blocks.append(BlockView(frame: CGRect(origin: newOrigin, size: blockSize), pointValue: blockScores[row/2]))
+                blocks.append(BlockView(frame: CGRect(origin: newOrigin, size: blockSize), scoreValue: blockScores[row/2]))
                 
                 // integer division allows 0,1 to map to 0, 2,3 to map to 2, etc.
                 blocks.last!.backgroundColor = blockColors![row/2]
@@ -253,7 +295,7 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
     {
         func handleBlockCollision(item: BlockView)
         {
-            print("Block detected a collision")
+            //print("Block detected a collision")
             
             collisionBehavior.removeItem(item)
             
@@ -262,6 +304,8 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
             self.score += item.scoreValue
             
             self.scoreLabel.text! = "Score: \(self.score)"
+            
+            
         }
         
         //print("\(item1.description) ended contact with \(item2.description)")
@@ -277,4 +321,19 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
             handleBlockCollision(item: item2 as! BlockView)
         }
     }
+    
+    
+    func collisionBehavior(_ behavior: UICollisionBehavior, beganContactFor item: UIDynamicItem, withBoundaryIdentifier identifier: NSCopying?, at p: CGPoint)
+    {
+        if let boundary = identifier
+        {
+            if boundary as! NSString == bottomBoundary
+            {
+                print("Ball collided with bottom boundary")
+                
+                drainBall()
+            }
+        }
+    }
+    
 }
