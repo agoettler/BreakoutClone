@@ -250,7 +250,13 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
         
         ballCountLabel.text! = "Ball: \(ballCount)"
         
+        if ballCount <= 0
+        {
+            endGame()
+        }
+        
         // stop the ball
+        // trying to stop and teleport the ball causes the ball to freeze above the paddle
         //ballProps.addLinearVelocity(ballProps.linearVelocity(for: ball).applying(CGAffineTransform(scaleX: -1, y: -1)), for: ball)
         
         // dispose of the ball entirely
@@ -299,18 +305,24 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
             
             collisionBehavior.removeItem(item)
             
+            blocks.remove(at: blocks.index(of: item)!)
+            
             item.removeFromSuperview()
             
             self.score += item.scoreValue
             
             self.scoreLabel.text! = "Score: \(self.score)"
             
+            if blocks.isEmpty
+            {
+                endGame()
+            }
             
         }
         
         //print("\(item1.description) ended contact with \(item2.description)")
         
-        // it's safe to cast the item as a BlockView, since the if statements test the class membership
+        // it's safe to cast the item as a BlockView, since the if-statements test the class membership
         if item1.isMember(of: BlockView.self)
         {
             handleBlockCollision(item: item1 as! BlockView)
@@ -322,12 +334,12 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
         }
     }
     
-    
+    // detect collisions between ball and the bottom boundary
     func collisionBehavior(_ behavior: UICollisionBehavior, beganContactFor item: UIDynamicItem, withBoundaryIdentifier identifier: NSCopying?, at p: CGPoint)
     {
         if let boundary = identifier
         {
-            if boundary as! NSString == bottomBoundary
+            if (boundary as! NSString == bottomBoundary) && (item.isEqual(ball))
             {
                 print("Ball collided with bottom boundary")
                 
@@ -336,4 +348,10 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
         }
     }
     
+    func endGame()
+    {
+        print("Game finished")
+        
+        self.dismiss(animated: true, completion: nil)
+    }
 }
