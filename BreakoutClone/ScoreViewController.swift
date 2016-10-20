@@ -28,11 +28,13 @@ class ScoreViewController: UIViewController, UITableViewDelegate, UITableViewDat
         if let storedScores = UserDefaults.standard.array(forKey: "highScores") as! [Int]?
         {
             highScores = storedScores
+            
+            print("ScoreViewController: Found high score list: \(highScores)")
         }
         
         else
         {
-            print("No list of high scores available")
+            print("ScoreViewController: No list of high scores available")
         }
         
         self.highScoreTable.reloadData()

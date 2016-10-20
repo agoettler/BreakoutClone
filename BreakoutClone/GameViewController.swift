@@ -71,6 +71,18 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
         print("GameViewController viewDidLoad")
         
         blockColors = [solarizedRed, solarizedBlue, solarizedGreen, solarizedYellow]
+        
+        if let storedScores = UserDefaults.standard.array(forKey: "highScores") as! [Int]?
+        {
+            highScores = storedScores
+            
+            print("GameViewController: found high score list: \(highScores)")
+        }
+            
+        else
+        {
+            print("GameViewController: No list of high scores available")
+        }
     }
     
     override func viewDidAppear(_ animated: Bool)
@@ -363,27 +375,21 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
         
         storeHighScores()
         
+        print("High score list: \(highScores)")
+        
         self.dismiss(animated: true, completion: nil)
     }
     
+    // this is not an optimal implementation of insertion into a sorted array, but it does work correctly
     func updateHighScores(newScore: Int)
     {
-        if highScores.count < highScoreSize
-        {
-            print("Adding new high score of: \(newScore)")
-            highScores.append(newScore)
-        }
+        print("Adding new high score of: \(newScore)")
         
-        else
+        if !highScores.contains(newScore)
         {
-            for score in highScores
-            {
-                if newScore > score
-                {
-                    print("Inserting new high score of: \(newScore)")
-                    highScores.insert(score, at: highScores.index(before: highScores.index(of: score)!))
-                }
-            }
+            highScores.append(newScore)
+            
+            highScores = highScores.sorted(by: >)
             
             // dump any excess high scores
             if highScores.count > highScoreSize
