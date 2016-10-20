@@ -360,7 +360,7 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
         {
             if (boundary as! NSString == bottomBoundary) && (item.isEqual(ball))
             {
-                print("Ball collided with bottom boundary")
+                // print("Ball collided with bottom boundary")
                 
                 drainBall()
             }
