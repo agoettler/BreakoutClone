@@ -97,9 +97,9 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
         
         initializeDynamics()
         
-        report()
+        //report()
         
-        Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(self.report), userInfo: nil, repeats: true)
+        //Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(self.report), userInfo: nil, repeats: true)
         
         startBall()
     }
@@ -219,9 +219,9 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
             print(", velocity: (\(paddleVelocity.x), \(paddleVelocity.y))")
         }
         
-        //reportBall()
+        reportBall()
         
-        //reportPaddle()
+        reportPaddle()
     }
     
     @IBAction func handlePanGesture(_ sender: UIPanGestureRecognizer)
